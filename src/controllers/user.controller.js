@@ -5,11 +5,11 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const generateAccessANdRefereshToken = async (userID) => {
+  // console.log(userID, "kdhfk");
   try {
     const user = await User.findById(userID);
-    const accessToken = user.generateAccessToken();
-    const refreshToken = user.generateRefreshToken();
-
+    const accessToken = await user.generateAccessToken();
+    const refreshToken = await user.generateRefreshToken();
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
@@ -17,7 +17,7 @@ const generateAccessANdRefereshToken = async (userID) => {
   } catch (error) {
     throw new APiError(
       500,
-      "Somthing went wrong while generating refersh and access token"
+      `Somthing went wrong while generating refersh and access token \n ${error}`
     );
   }
 };
@@ -98,7 +98,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // return it in cookie
 
   const { email, username, password } = req.body;
-  if (!(username || email)) {
+  if (!username || !email) {
     throw new APiError(400, "Username or email is required");
   }
   const user = await User.findOne({
@@ -126,7 +126,7 @@ const loginUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken)
+    .cookie("refreshToken", refreshToken, options)
     .json(
       new ApiResponse(
         200,
