@@ -118,3 +118,10 @@ dist
 .pnp.*
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node
+.idea/vcs.xml
+.idea/Chai aur Javascript Backend  Hindi.iml
+.idea/modules.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/codeStyles/Project.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/.gitignore
