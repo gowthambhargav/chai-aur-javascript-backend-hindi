@@ -17,7 +17,33 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 
 const router = Router()
-
+/**
+ * @openapi
+ * /register:
+ *   post:
+ *     summary: Register a new user
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *                 description: The avatar image file for the user
+ *               coverImage:
+ *                 type: string
+ *                 format: binary
+ *                 description: The cover image file for the user
+ *     responses:
+ *       '200':
+ *         description: User registered successfully
+ *       '400':
+ *         description: Bad request
+ *       '500':
+ *         description: Internal server error
+ */
 router.route("/register").post(
     upload.fields([
         {
@@ -32,6 +58,30 @@ router.route("/register").post(
     registerUser
     )
 
+/**
+ * @openapi
+ * /login:
+ *   post:
+ *     summary: Log in a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Successful login
+ *       '400':
+ *         description: Invalid request
+ *       '401':
+ *         description: Unauthorized
+ */
 router.route("/login").post(loginUser)
 
 //secured routes
