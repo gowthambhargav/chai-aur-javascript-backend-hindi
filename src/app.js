@@ -1,9 +1,16 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
+
+
 
 const app = express();
 
+
+
+
+app.use(morgan("dev"))
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
@@ -26,6 +33,8 @@ import commentRouter from "./routes/comment.routes.js";
 import likeRouter from "./routes/like.routes.js";
 import playlistRouter from "./routes/playlist.routes.js";
 import dashboardRouter from "./routes/dashboard.routes.js";
+
+
 
 //routes declaration
 app.use("/api/v1/healthcheck", healthcheckRouter);
